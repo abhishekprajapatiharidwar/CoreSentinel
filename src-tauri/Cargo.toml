@@ -1,0 +1,37 @@
+[package]
+name = "taskviewer"
+version = "0.1.0"
+description = "Advanced Windows System Monitor & Process Manager"
+authors = ["Abhishek"]
+edition = "2021"
+
+[lib]
+name = "taskviewer_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = ["tray-icon"] }
+tauri-plugin-opener = "2"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+sysinfo = "0.33"
+tokio = { version = "1", features = ["full"] }
+chrono = { version = "0.4", features = ["serde"] }
+
+[target.'cfg(windows)'.dependencies]
+windows = { version = "0.58", features = [
+    "Win32_System_ProcessStatus",
+    "Win32_Foundation",
+    "Win32_System_Threading",
+    "Win32_System_Diagnostics_ToolHelp",
+    "Win32_NetworkManagement_IpHelper",
+    "Win32_Networking_WinSock",
+    "Win32_Security",
+    "Win32_System_Services",
+    "Win32_System_Registry",
+    "Win32_UI_Shell",
+    "Win32_System_JobObjects",
+] }
